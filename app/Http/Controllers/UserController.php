@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
 use App\Http\Requests\RegisterRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
@@ -32,20 +34,27 @@ class UserController extends Controller
 
     public function login(LoginRequest $request)
     {
-        try {
-            $validated = $request->validated();
-            $user = User::where('email', $validated['email'])->first();
-            if (!$user || !Hash::check($validated['password'], $user->password)) {
-                return response()->json(['error' => 'Credenciales inválidas'], 401);
-            }
+        Log::info('Orden de inicio de sesión recibida', [
+            'request' => $request->all(),
+            'fecha' => now()->format('Y-m-d')
+        ]);
 
+
+        $validated = $request->validated();
+        $user = User::where('email', $validated['email'])->first();
+        if (!$user || !Hash::check($validated['password'], $user->password)) {
+            return response()->json(['error' => 'Credenciales inválidas'], 401);
+        }
+        try {
+            $token = $user->createToken('token')->plainTextToken;
             return response()->json([
                 'user' => [
                     'name' => $user->name,
                     'email' => $user->email,
                 ],
                 'token' => [
-                    'token' => $user->createToken('token')->plainTextToken,
+                    'token' => $token,
+                    'expires_in' => config('sanctum.expiration') * 60
                 ]
             ], 200);
         } catch (\Exception $e) {
