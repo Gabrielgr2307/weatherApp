@@ -11,12 +11,12 @@ class UserHistoryViewController extends Controller
         $user = $request->user();
 
         $histories = $user->searchHistories()
-            ->latest()
-            ->take(10)
-            ->get();
-
+        ->latest()
+        ->take(10)
+        ->get();
         $favorites = $user->favoriteCities()->get();
 
-        return view('history.index', compact('histories', 'favorites'));
+
+        return view('history.index', compact('histories'));
     }
 }

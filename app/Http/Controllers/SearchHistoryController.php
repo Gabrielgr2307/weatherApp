@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class SearchHistoryController extends Controller
 {
 
-    public function index(Request $request)
+    public function historySearth(Request $request)
     {
         $histories = $request->user()
             ->searchHistories()

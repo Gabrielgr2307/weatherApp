@@ -1,11 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Services\WeatherService;
-
 
 class WeatherController extends Controller
 {
@@ -18,16 +15,32 @@ class WeatherController extends Controller
 
     public function show(Request $request)
     {
-        $city = $request->query('city', 'Caracas');
+        $city = $request->city;
+        $country = $request->country;
+        return $this->getWeatherData($request, $city, $country);
+    }
 
-        $data = $this->weather->getCurrentWeather($city);
+    public function showBlade(Request $request)
+    {
+        $city = $request->city;
+        $country = $request->country;
+        if ($city == "Distrito Capital") {
+            $city = "Caracas";
+        }
+        return $this->getWeatherData($request, $city, $country);
+    }
+
+    private function getWeatherData(Request $request, $city, $country)
+    {
+        $data = $this->weather->getCurrentWeather($city, $country);
+
         if (!$data) {
             return response()->json(['error' => 'No se pudo obtener el clima'], 500);
         }
 
-        // Guardar historial
         $request->user()->searchHistories()->create([
-            'city' => $city
+            'city' => $city,
+            'country' => $country
         ]);
 
         return response()->json([
@@ -40,6 +53,10 @@ class WeatherController extends Controller
                 'icono' => $data['current']['condition']['icon'],
                 'viento_kph' => $data['current']['wind_kph'] . ' km/h',
                 'humedad' => $data['current']['humidity'] . '%',
+                'msg' => 'Búsqueda exitosa',
+                'isFavorite' => $request->user()->favoriteCities()
+                                    ->where('city', $data['location']['name'])
+                                    ->exists()
             ]
         ]);
     }

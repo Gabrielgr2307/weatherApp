@@ -18,28 +18,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::prefix('user')->name('user.')->group(function () {
+    Route::post('register', [UserController::class, 'register'])->name('register');
+    Route::post('login', [UserController::class, 'login'])->name('login');
+    Route::post('logout', [UserController::class, 'logout'])->middleware(['auth:sanctum', 'check-token-expiration']);
+    Route::get('home', [UserController::class, 'home'])->middleware(['auth:sanctum', 'check-token-expiration']);
+});
 
-
-Route::name('user.')->prefix('user')->group(function() {
-    Route::POST('register', [UserController::class, 'register'])->name('register');
-    Route::POST('login', [UserController::class, 'login'])->name('login');
-    Route::GET('home', [UserController::class, 'home'])->middleware('auth:sanctum');;
+Route::name('weather.')->prefix('weather')->middleware(['auth:sanctum', 'check-token-expiration', 'throttle:10,1'])->group(function () {
+    Route::post('weatherclimate', [WeatherController::class, 'show']);
 });
 
 
-Route::name('weather.')->prefix('weather')->middleware('auth:sanctum')->group(function () {
-    Route::get('weatherclimate', [WeatherController::class, 'show']);
+
+Route::name('history.')->prefix('history')->middleware(['auth:sanctum', 'check-token-expiration', 'throttle:15,1'])->group(function () {
+    Route::get('historySearth', [SearchHistoryController::class, 'historySearth']);
 });
 
-Route::name('favorites.')->prefix('favorites')->middleware('auth:sanctum')->group(function () {
-    Route::post('toggle', [FavoriteCityController::class, 'toggleFavorite']);
-    Route::get('favorites', [FavoriteCityController::class, 'listFavorites']);
 
-});
-
-Route::name('history.')->prefix('history')->middleware('auth:sanctum')->group(function () {
-    Route::post('history', [SearchHistoryController::class, 'index']);
+Route::prefix('favorites')->name('favorites.')->middleware(['auth:sanctum','check-token-expiration','throttle:20,1'])->group(function () {
+    Route::post('toggle', [FavoriteCityController::class, 'toggleFavorite'])->name('toggle');
+    Route::post('add', [FavoriteCityController::class, 'addFavorite'])->name('add');
+    Route::post('remove', [FavoriteCityController::class, 'removeFavorite'])->name('remove');
+    Route::post('isFavorite', [FavoriteCityController::class, 'isFavorite'])->name('isFavorite');
+    Route::get('listFavoritesApi', [FavoriteCityController::class, 'listFavoritesApi'])->name('listFavoritesApi');
 });

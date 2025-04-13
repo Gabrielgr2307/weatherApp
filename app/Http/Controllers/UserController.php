@@ -31,7 +31,6 @@ class UserController extends Controller
         ], 201);
     }
 
-
     public function login(LoginRequest $request)
     {
         Log::info('Orden de inicio de sesión recibida', [
@@ -71,6 +70,19 @@ class UserController extends Controller
             ],
             'mensaje' => 'Bienvenido a la API',
         ]);
+    }
+
+    public function logout(Request $request)
+    {
+        $token = $request->user()->currentAccessToken();
+
+        if (!$token) {
+            return response()->json(['message' => 'El token ya ha sido revocado o no existe.'], 400);
+        }
+
+        $token->delete();
+
+        return response()->json(['message' => 'Sesión cerrada correctamente.'], 200);
     }
 
 }
