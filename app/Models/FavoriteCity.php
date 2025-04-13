@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class FavoriteCity extends Model
 {
     use HasFactory;
+    protected $fillable = ['city'];
 
     public function user()
 {
