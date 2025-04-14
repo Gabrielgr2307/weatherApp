@@ -1,68 +1,174 @@
-<<<<<<< HEAD
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+🌤️ WeatherApp - Documentación de Instalación y Uso
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+WeatherApp es una aplicación web construida con Laravel 8 modularizada con nWidart/laravel-modules. Permite registrar usuarios, autenticar con Sanctum, consultar el clima actual de ciudades, guardar favoritas, ver historial y consumir una API documentada con Swagger.
 
-## About Laravel
+✅ Requisitos del sistema
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+PHP >= 8.0
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Composer
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Node.js y NPM
 
-## Learning Laravel
+SQLite o MySQL
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+🚀 Instalación del proyecto
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Clonar el repositorio:
 
-## Laravel Sponsors
+ git clone https://github.com/tuusuario/weather-app.git
+ cd weather-app
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Instalar dependencias:
 
-### Premium Partners
+composer install
+npm install && npm run dev
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+Copiar archivo de entorno y configurar:
 
-## Contributing
+cp .env.example .env
+php artisan key:generate
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Editar .env:
+Configurar los siguientes valores:
 
-## Code of Conduct
+DB_CONNECTION=sqlite
+DB_DATABASE=/ruta/absoluta/a/database/database.sqlite
+WEATHER_API_KEY=tu_clave_api_de_weatherapi.com
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Crear base de datos si usas SQLite:
 
-## Security Vulnerabilities
+touch database/database.sqlite
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Ejecutar migraciones y seeders:
 
-## License
+php artisan migrate --seed
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-=======
-# weatherApp
->>>>>>> c542939c3c9aeaabed44dc946ecfd51776d9033e
+Publicar assets de los módulos (si aplica):
+
+php artisan module:publish
+
+🧩 Paquetes utilizados
+
+laravel/sanctum: Autenticación API por token
+
+nwidart/laravel-modules: Estructura modular
+
+knuckleswtf/scribe: Documentación de API (Swagger)
+
+nnjeim/world: Listado de países y ciudades
+
+spatie/laravel-permission: Roles y permisos (en desarrollo)
+
+🔐 Autenticación
+
+Registro de usuario
+
+Login y generación de token con Laravel Sanctum
+
+Middleware auth:sanctum para proteger rutas
+
+Middleware personalizado check-token-expiration
+
+Logout y expiración de token
+
+🔧 Módulos disponibles
+
+UserModule: Registro, login, logout, home
+
+Weather: Consulta de clima con WeatherAPI
+
+Favorite: Agregar/Quitar ciudades favoritas, listar y verificar
+
+History: Mostrar búsquedas recientes
+
+📦 Endpoints principales (Swagger en /docs)
+
+Auth
+
+POST /api/usermodule/register
+
+POST /api/usermodule/login
+
+GET /api/usermodule/home
+
+POST /api/usermodule/logout
+
+Weather
+
+POST /api/weather/weatherclimate
+
+Favoritos
+
+POST /api/favorites/toggleFavorite
+
+POST /api/favorites/add
+
+POST /api/favorites/remove
+
+POST /api/favorites/isFavorite
+
+GET /api/favorites/listFavoritesApi
+
+Historial
+
+POST /api/history/history
+
+🧪 Pruebas con PHPUnit
+
+Crear archivo de prueba:
+
+php artisan make:test NombreTest --unit
+
+Ejecutar pruebas:
+
+php artisan test
+
+Ejecutar prueba individual:
+
+php artisan test --filter NombreDelMetodoDePrueba
+
+📑 Documentación Swagger
+
+Generar documentación:
+
+php artisan scribe:generate
+
+Acceder en el navegador:
+
+http://localhost:8000/docs
+
+🌐 Interfaz web
+
+Interfaz construida con Blade, TailwindCSS y componentes Alpine.js
+
+Formulario minimalista de login y registro
+
+Dashboard con consulta de clima y favoritos
+
+Vista de historial y favoritos
+
+📁 Estructura modular (ejemplo)
+
+Modules/
+  User/
+    Http/
+    Models/
+    Routes/
+  Weather/
+  Favorite/
+  History/
+
+✨ Extras
+
+Multiidioma parcial (lang/es/validation.php)
+
+Control de errores con validaciones y respuestas JSON
+
+Animaciones y feedback visual con SweetAlert y Select2
+
+📬 Contacto
+
+Desarrollado por Gabriel Rodriguez
+
+¡Gracias por usar WeatherApp! 🌦️

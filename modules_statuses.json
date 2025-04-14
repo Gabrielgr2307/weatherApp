@@ -1,0 +1,9 @@
+{
+    "User": true,
+    "Favorite": true,
+    "History": true,
+    "Swagger": true,
+    "Country": true,
+    "Weather": true,
+    "Auth": true
+}
