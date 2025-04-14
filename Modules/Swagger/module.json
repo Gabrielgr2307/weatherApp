@@ -1,0 +1,13 @@
+{
+    "name": "Swagger",
+    "alias": "swagger",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Swagger\\Providers\\SwaggerServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}

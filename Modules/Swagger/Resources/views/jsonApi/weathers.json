@@ -1,0 +1,118 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "API de Weather Module",
+      "version": "1.0.0",
+      "description": "Documentación de la API para obtener información del clima de una ciudad."
+    },
+    "paths": {
+      "/weather/weatherclimate": {
+        "post": {
+          "summary": "Obtener información del clima",
+          "description": "Permite obtener la información del clima actual para una ciudad y país específicos.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "city": {
+                      "type": "string",
+                      "description": "Nombre de la ciudad para la cual se desea obtener el clima."
+                    },
+                    "country": {
+                      "type": "string",
+                      "description": "Código del país en el que se encuentra la ciudad."
+                    }
+                  },
+                  "required": [
+                    "city",
+                    "country"
+                  ]
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Información del clima obtenida exitosamente.",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "resul": {
+                          "type": "object",
+                          "properties": {
+                            "ciudad": {
+                              "type": "string"
+                            },
+                            "pais": {
+                              "type": "string"
+                            },
+                            "hora_local": {
+                              "type": "string"
+                            },
+                            "temperatura": {
+                              "type": "string"
+                            },
+                            "estado": {
+                              "type": "string"
+                            },
+                            "icono": {
+                              "type": "string"
+                            },
+                            "viento_kph": {
+                              "type": "string"
+                            },
+                            "humedad": {
+                              "type": "string"
+                            },
+                            "msg": {
+                              "type": "string"
+                            },
+                            "isFavorite": {
+                              "type": "boolean"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "500": {
+                "description": "Error al obtener el clima.",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "bearerAuth": []
+              }
+            ]
+          }
+        }
+      }
+    },
+    "components": {
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      }
+    }
+  }

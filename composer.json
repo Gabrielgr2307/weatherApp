@@ -6,12 +6,14 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "darkaonline/l5-swagger": "^8.6",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.15",
         "laravel/tinker": "^2.5",
         "nnjeim/world": "^1.1",
+        "nwidart/laravel-modules": "^8.0",
         "umpirsky/country-list": "^2.0"
     },
     "require-dev": {
@@ -27,7 +29,8 @@
         "psr-4": {
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
-            "Database\\Seeders\\": "database/seeders/"
+            "Database\\Seeders\\": "database/seeders/",
+            "Modules\\": "Modules/"
         }
     },
     "autoload-dev": {

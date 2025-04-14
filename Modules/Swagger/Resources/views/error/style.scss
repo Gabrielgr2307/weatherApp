@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans');
+
+
+ul {
+  list-style-type: none;
+  padding-inline-start: 35px;
+}
+svg {
+  width: 100%;
+  visibility: hidden;
+}
+
+@media screen and (max-width:768px) {
+  body {
+    display:block;
+  }
+  .container {
+    margin-top:70px;
+    margin-bottom:70px;
+  }
+}

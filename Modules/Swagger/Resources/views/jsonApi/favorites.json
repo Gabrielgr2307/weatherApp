@@ -1,0 +1,350 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "API de Favorites Module",
+      "version": "1.0.0",
+      "description": "Documentación de la API para gestionar ciudades favoritas."
+    },
+    "paths": {
+      "/favorites/toggle": {
+        "post": {
+          "summary": "Agregar o eliminar una ciudad de favoritos",
+          "description": "Permite alternar el estado de una ciudad en la lista de favoritos.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "city": {
+                      "type": "string",
+                      "description": "Nombre de la ciudad a agregar o eliminar de favoritos."
+                    }
+                  },
+                  "required": [
+                    "city"
+                  ]
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "La ciudad ha sido agregada o eliminada de favoritos.",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "400": {
+                "description": "Error de validación",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "bearerAuth": []
+              }
+            ]
+          }
+        }
+      },
+      "/favorites/add": {
+        "post": {
+          "summary": "Agregar una ciudad a favoritos",
+          "description": "Permite agregar una ciudad a la lista de favoritos.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "city": {
+                      "type": "string",
+                      "description": "Nombre de la ciudad a agregar a favoritos."
+                    }
+                  },
+                  "required": [
+                    "city"
+                  ]
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "La ciudad ya está en favoritos.",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "201": {
+                "description": "Ciudad agregada a favoritos.",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "400": {
+                "description": "Error de validación",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "bearerAuth": []
+              }
+            ]
+          }
+        }
+      },
+      "/favorites/remove": {
+        "post": {
+          "summary": "Eliminar una ciudad de favoritos",
+          "description": "Permite eliminar una ciudad de la lista de favoritos.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "city": {
+                      "type": "string",
+                      "description": "Nombre de la ciudad a eliminar de favoritos."
+                    }
+                  },
+                  "required": [
+                    "city"
+                  ]
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Ciudad eliminada de favoritos.",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "400": {
+                "description": "Error de validación",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "404": {
+                "description": "La ciudad no está en favoritos.",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "bearerAuth": []
+              }
+            ]
+          }
+        }
+      },
+      "/favorites/isFavorite": {
+        "post": {
+          "summary": "Verificar si una ciudad es favorita",
+          "description": "Permite verificar si una ciudad está en la lista de favoritos.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "city": {
+                      "type": "string",
+                      "description": "Nombre de la ciudad a verificar."
+                    }
+                  },
+                  "required": [
+                    "city"
+                  ]
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Verificación exitosa.",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "isFavorite": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "400": {
+                "description": "Error de validación",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "security": [
+              {
+                "bearerAuth": []
+              }
+            ]
+          }
+        }
+      },
+      "/favorites/listFavoritesApi": {
+        "get": {
+          "summary": "Listar ciudades favoritas",
+          "description": "Permite obtener una lista de las ciudades favoritas del usuario.",
+          "responses": {
+            "200": {
+              "description": "Lista de ciudades favoritas obtenida exitosamente.",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "integer"
+                        },
+                        "city": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string",
+                          "format": "date-time"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "401": {
+              "description": "No autorizado",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "message": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "security": [
+            {
+              "bearerAuth": []
+            }
+          ]
+        }
+      }
+    },
+    "components": {
+      "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+      }
+    }
+  }

@@ -21,6 +21,9 @@
                     <x-nav-link :href="route('favoritesBlade.index')" :active="request()->routeIs('favoritesBlade.index')">
                         {{ __('Favoritos') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('documents.index')" :active="request()->routeIs('documents.index')">
+                        {{ __('Documentacion') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -73,7 +76,13 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('history.index')" :active="request()->routeIs('history.index')">
+                {{ __('Historial') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('history.index')" :active="request()->routeIs('history.index')">
                 {{ __('Favoritos') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('history.index')" :active="request()->routeIs('history.index')">
+                {{ __('Documentacion') }}
             </x-responsive-nav-link>
         </div>
 
